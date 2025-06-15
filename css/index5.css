@@ -835,7 +835,7 @@ button:hover {
     flex-wrap: wrap;
     flex-direction: row;
     width: 80%;
-    margin: 20px 0;
+    margin: 20px auto;
     justify-content: center;
 }
 
@@ -870,6 +870,8 @@ button:hover {
 
 .card-content h3 {
     font-size: 2em;
+        overflow-wrap:break-word ;
+
     margin-top: 20px;
     font-weight: bold;
     color: #02042B;
@@ -879,6 +881,8 @@ button:hover {
     font-size: 14px;
     color: #2F3147;
     margin-top: 18px;
+        overflow-wrap:break-word ;
+
     padding-bottom: 40px;
 }
 

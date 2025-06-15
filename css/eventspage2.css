@@ -347,12 +347,15 @@ body {
 
 .card-content h3 {
     font-size: 2em;
+    overflow-wrap: break-word;
     margin-top: 20px;
     font-weight: bold;
     color: #02042B;
 }
 
 .card-content p {
+        overflow-wrap: break-word;
+
     font-size: 14px;
     color: #2F3147;
     margin-top: 18px;

@@ -17,8 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eventsubmit'])) {
     $eventtitle = mysqli_real_escape_string($conn, $_POST['eventTitle']);
     $eventdescription = mysqli_real_escape_string($conn, trim($_POST['eventDescription']));
 
+    // Character limit check for title
+    if (strlen($eventtitle) > 50) {
+        echo "<script>alert('Error: Title cannot exceed 50 characters.'); window.history.back();</script>";
+        exit;
+    }
 
-    // Word limit check
+    // Word limit check for description
     $wordCount = str_word_count($eventdescription);
     if ($wordCount > 75) {
         echo "<script>alert('Error: Description exceeds 75 words.'); window.history.back();</script>";
@@ -40,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eventsubmit'])) {
                  VALUES ('$user_id', '$eventtitle', '$eventdescription', '$imageData')";
 
     if (mysqli_query($conn, $addevent)) {
-        echo "<script>alert('Event added successfully!'); window.location.href='profile.php';</script>";
+        header("Location: profile.php");
+        exit;
     } else {
         echo "Error: " . mysqli_error($conn);
     }

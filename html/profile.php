@@ -319,10 +319,10 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
            <form id="eventForm" class="event-form" action="add_event.php" method="POST" enctype="multipart/form-data">
                 <h3>Add New Event</h3>
                 <label for="eventTitle">Event Title</label>
-                <input type="text" id="eventTitle" name="eventTitle" required>
+                <input type="text" id="eventTitle" name="eventTitle" maxlength="50" placeholder="Maximum 50 characters" required>
         
                 <label for="eventDescription">Description</label>
-               <textarea id="eventDescription" name="eventDescription" draggable="false" maxlength="200" required></textarea>
+               <textarea id="eventDescription" name="eventDescription" draggable="false" maxlength="200"  required></textarea>
                <small id="wordCount">0/75 words</small>
 
         
