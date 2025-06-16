@@ -6,8 +6,8 @@ ini_set('display_errors', 1);
 
 $email = $_SESSION['user'] ?? null;
 if (!$email) {
-    echo "User not logged in";
-    exit;
+    header("location:index.php");
+        exit;
 }
 
 
@@ -21,5 +21,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
         echo "DB error: " . mysqli_error($conn);
     }
 } else {
-    echo "Invalid request";
+   header("location:index.php");
 }

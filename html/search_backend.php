@@ -3,7 +3,12 @@
                         session_start();
                     }
 include("dbconfig.php");
-
+if (!isset($_SESSION['user'])) {
+    // Redirect to the login page or handle the error appropriately
+    header("location:login.php");
+    exit;
+}
+if(isset($_GET['query'])){
 $searchedUsername = $_GET['query'] ?? '';
 $batch = $_GET['batch'] ?? '';
 $degree = $_GET['degree'] ?? '';
@@ -71,9 +76,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $response["html"] .= '<div class="profile-card">';
         $response["html"] .= '<div class="profile-left-section">
-                <div class="profile-image">
-                    <img src="../assets/avatar.png" style="width: 80px;">
-                </div>
+                <div class="profile-image"><img src="/alumni/assets/avatar.png" alt=""></div>
                 <div class="profile-name">
                   <h2>' . htmlspecialchars($row["name"]) . '</h2>';
         if ($row["designation"] || $row["organization"]) {
@@ -111,3 +114,7 @@ $response["html"] .= '<form action="showprofile.php?name='.  urlencode($name) .'
 }
 
 echo json_encode($response);
+}
+else{
+    header("location:searchpage.php");
+}

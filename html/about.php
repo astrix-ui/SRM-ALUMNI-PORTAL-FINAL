@@ -76,17 +76,17 @@ Join us in building a vibrant ecosystem where SRMites support one another across
       <H1>Meet our Team</H1>
         <div class="cards-container">
           <div class="card">
-              <img src="../assets/sample2.png">
+              <img src="../assets/sample2.png" alt="Aditya">
               <div class="card-content">
                   <a href="">
                       <h3>Aditya Dev Chand</h3>
                   </a>
-                  <p>Backend & Database Developer</p>
+                  <p>Backend Developer</p>
               </div>
           </div>
             <div class="card">
                 <!-- DC SET LIMIT OF CHARACTERS FOR EVENT DESCRIPTION TO ONLY 75 WORDS  -->
-                <img src="../assets/sample2.png" >
+                <img src="../assets/sample2.png" alt="Ayush">
                 <div class="card-content">
                     <a href="">
                         <h3>Ayush Sharma</h3>
@@ -97,7 +97,7 @@ Join us in building a vibrant ecosystem where SRMites support one another across
     
     
             <div class="card">
-                <img src="../assets/sample2.png">
+                <img src="../assets/sample2.png" alt="Aadya">
                 <div class="card-content">
                     <a href="">
                         <h3>Aadya Jha</h3>
@@ -107,7 +107,7 @@ Join us in building a vibrant ecosystem where SRMites support one another across
             </div>
 
             <div class="card">
-                <img src="../assets/sample2.png">
+                <img src="../assets/sample2.png" alt="Vinay">
                 <div class="card-content">
                     <a href="">
                         <h3>Dr. Vinay Kumar Singhal</h3>

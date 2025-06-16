@@ -1,8 +1,12 @@
 <?php
 // delete_event.php
-
+session_start();
 include 'dbconfig.php'; // Ensure this has your DB connection $conn
-
+ $email = $_SESSION['user'] ?? null;
+if (!$email) {
+    header("location:index.php");
+        exit;
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id'])) {
         $eventId = intval($_POST['id']); // Sanitize input
@@ -22,6 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo 'no_id';
     }
 } else {
-    echo 'invalid_request';
+    header("location:index.php");
 }
 ?>

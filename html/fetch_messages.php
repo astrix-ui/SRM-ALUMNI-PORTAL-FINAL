@@ -25,6 +25,6 @@ if(isset($_POST['loggedin_user']) && isset($_POST['otherperson']))
     }
 }
 else{
-    echo 'error';
+    header("location:index.php");
 }
 ?>

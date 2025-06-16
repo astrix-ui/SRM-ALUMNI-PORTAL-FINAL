@@ -108,21 +108,16 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
       </ul>
       <div class="btn-container-mobile">
 
+        <div class="mobile-register-btn" style=" margin-bottom: 5px;">
+            <a href="./editprofile.php" id="mobile-register-btn-text">Edit Profile</a>
+          </div>
       
-      <div class="mobile-register-btn" style=" margin-bottom: 5px;">
-         <?php
-                  if(isset($_SESSION['user'])){
-                    echo'<a href="logout.php" id="register-btn-text">Logout</a>';}
-                    else{
-                      echo'<a href="login.php" id="register-btn-text">Register</a>';}
-                  ?>
+      <div class="mobile-register-btn" >
+        <a href="logout.php" id="register-btn-text">Logout</a>
+        </div>
+                    
+      
       </div>
-      <!-- <div class="mobile-register-btn">
-        <a href="./profile.html" id="mobile-register-btn-text">Profile</a>
-      </div> -->
-      <div class="mobile-register-btn">
-          <a href="./editprofile.php" id="mobile-register-btn-text">Edit Profile</a>
-        </div></div>
     </div>
 
     <!-- Profile  HEADER Section -->
@@ -208,26 +203,40 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
                   <img src="../assets/location.png" alt="">
                   <div class="location-details">
                     <?php
-                       $location_parts = [];
-                       if (!empty($user_data['city'])){
-                       $location_parts[] = htmlspecialchars($user_data['city']);}
-                        if (!empty($user_data['country'])){
-                       $location_parts[] = htmlspecialchars($user_data['country']);}
-                        echo '<p><strong>'.  implode(', ', $location_parts).'</strong></p>';
-                      
-                        $address = $user_data['address'];        
-                        // split at the first comma
-                        $address_parts = explode(",", $address, 2);
-                                    
-                        // If there is no comma, manually break the string into two halves
-                        if (count($address_parts) < 2) {
-                            $half = ceil(strlen($address) / 2);
-                            $address_parts[0] = substr($address, 0, $half);
-                            $address_parts[1] = substr($address, $half);
-                        }
-                        
-                        
-                        echo $address_parts[0] . "<br>" . $address_parts[1];
+                      $location_parts = [];
+
+if (!empty($user_data['city'])) {
+    $location_parts[] = htmlspecialchars($user_data['city']);
+}
+if (!empty($user_data['country'])) {
+    $location_parts[] = htmlspecialchars($user_data['country']);
+}
+
+$address = trim($user_data['address'] ?? '');
+
+if (empty($location_parts) && empty($address)) {
+    echo '<p style="padding-top:7px"><strong>No location added</strong></p>';
+} else {
+    
+    if (!empty($location_parts)) {
+         $style = empty($address) ? ' style="padding-top:7px"' : '';
+        echo '<p' . $style . '><strong>' . implode(', ', $location_parts) . '</strong></p>';
+    }
+
+    
+    if (!empty($address)) {
+        $address_parts = explode(",", $address, 2);
+
+        if (count($address_parts) < 2) {
+            $half = ceil(strlen($address) / 2);
+            $address_parts[0] = substr($address, 0, $half);
+            $address_parts[1] = substr($address, $half);
+        }
+
+        echo $address_parts[0] . "<br>" . $address_parts[1];
+    }
+}
+    
                         ?>
                       
                         <!-- <p><strong>Paris, France</strong></p>
@@ -241,11 +250,14 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
         <div class="qualifications">
   <h2>Qualifications</h2>
   <ul id="qualification-list">
+    
   <?php
   
   $user_id = $user_data['user_id'];
   $result = mysqli_query($conn, "SELECT * FROM qualification WHERE user_id = $user_id");
-  
+  if(mysqli_num_rows($result)<1){
+    echo'<li id="add-qual-msg" style="color: gray;">Add Qualification</li>';
+}
   while ($qualification_data = mysqli_fetch_assoc($result)) {
       echo '<li data-id="' . $qualification_data['qualification_id'] . '">' . htmlspecialchars($qualification_data['qualification']) . ' <button class="remove-btn">-</button></li>';
 
@@ -265,7 +277,9 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
      <?php
   
   $experience_result = mysqli_query($conn, "SELECT * FROM experience WHERE user_id = $user_id");
-  
+   if(mysqli_num_rows($experience_result)<1){
+    echo'<li id="add-exp-msg" style="color: gray;">Add Experience</li>';
+}
   while ($experience_data = mysqli_fetch_assoc($experience_result)) {
       echo '<li data-id="' . $experience_data['experience_id'] . '">' . htmlspecialchars($experience_data['experience']) . ' <button class="remove-btn">-</button></li>';
 
@@ -296,15 +310,14 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
 <div class="overlay" id="overlay">
     <div class="overlay-content">
       <!-- <button class="close-btn" id="closeOverlay">&times;</button> -->
-       <form action="updateprofile.php" method="POST" style="height: 90%;">
+       <form  id="aboutForm" method="POST" style="height: 90%;">
         <textarea id="aboutInput" placeholder="Write something about yourself..." name="about"></textarea>
         <div class="button-container">
 
-          <button type="button" id="closeOverlay">Cancel</button>
-          
+          <button type="button" id="closeOverlay">Cancel</button>  
           <button type="submit" id="submitAbout" name="submitAbout">Submit</button>
-       </form>
         </div>
+        </form>
     </div>
 </div>
 
@@ -319,10 +332,11 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
            <form id="eventForm" class="event-form" action="add_event.php" method="POST" enctype="multipart/form-data">
                 <h3>Add New Event</h3>
                 <label for="eventTitle">Event Title</label>
-                <input type="text" id="eventTitle" name="eventTitle" maxlength="50" placeholder="Maximum 50 characters" required>
+                 <input type="text" id="eventTitle" name="eventTitle" maxlength="50" placeholder="Maximum 50 characters" required>
+
         
                 <label for="eventDescription">Description</label>
-               <textarea id="eventDescription" name="eventDescription" draggable="false" maxlength="200"  required></textarea>
+              <textarea id="eventDescription" name="eventDescription" draggable="false" maxlength="200" placeholder="Maximum 50 characters" required></textarea>
                <small id="wordCount">0/75 words</small>
 
         
@@ -340,7 +354,7 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
 
         <div class="btn-container">
 
-            <button type="submit" name="eventsubmit">Submit</button>
+            <button type="submit" name="eventsubmit" value="1">Submit</button>
             <button type="button" id="cancelFormBtn">Cancel</button>
         </div>
             </form>
@@ -493,10 +507,16 @@ addBtn.addEventListener('click', () => {
     })
     .then(response => response.text())
     .then(result => {
-      if (result === 'success') {
-        const li = document.createElement('li');
-        li.innerHTML = `${qualification.trim()} <button class="remove-btn">-</button>`;
-        qualificationList.insertBefore(li, addItem);
+     if (result === 'success') {
+  // Remove "Add qualification" message if it's there
+  const addMsg = document.getElementById('add-qual-msg');
+  if (addMsg) addMsg.remove();
+
+  const li = document.createElement('li');
+  li.setAttribute('data-id', 'new'); // you can update ID from server later if needed
+  li.innerHTML = `${qualification.trim()} <button class="remove-btn">-</button>`;
+  qualificationList.insertBefore(li,addItem);
+
       } else {
         alert("Error saving qualification to database.");
       }
@@ -524,7 +544,18 @@ qualificationList.addEventListener('click', (e) => {
       .then(response => response.text())
       .then(result => {
         if (result === 'success') {
-          li.remove();
+  li.remove();
+
+  // Check if all qualifications are deleted
+  const remainingItems = qualificationList.querySelectorAll('li[data-id]');
+  if (remainingItems.length === 0) {
+    const msg = document.createElement('li');
+    msg.id = 'add-qual-msg';
+    msg.style.color = 'gray';
+    msg.textContent = 'Add Qualification';
+    qualificationList.insertBefore(msg,addItem);
+  }
+
         } else {
           alert("Failed to delete qualification.");
         }
@@ -556,7 +587,13 @@ addExperienceBtn.addEventListener('click', () => {
     .then(response => response.text())
     .then(result => {
       if (result === 'success') {
-        const li = document.createElement('li');
+
+        // Remove "Add exp" message if it's there
+  const addMsg = document.getElementById('add-exp-msg');
+  if (addMsg) addMsg.remove(); 
+
+        const li = document.createElement('li'); 
+        li.setAttribute('data-id', 'new'); // you can update ID from server later if needed
         li.innerHTML = `${experience.trim()} <button class="remove-btn">-</button>`;
         experienceList.insertBefore(li, addExperienceItem);
       } else {
@@ -583,9 +620,20 @@ experienceList.addEventListener('click', (e) => {
         body: 'id=' + encodeURIComponent(experienceId)
       })
       .then(response => response.text())
-      .then(result => {
+       .then(result => {
         if (result === 'success') {
-          li.remove();
+  li.remove();
+
+  // Check if all exps are deleted
+  const remainingItems = experienceList.querySelectorAll('li[data-id]');
+  if (remainingItems.length === 0) {
+    const msg = document.createElement('li');
+    msg.id = 'add-exp-msg';
+    msg.style.color = 'gray';
+    msg.textContent = 'Add Experience';
+    experienceList.insertBefore(msg,addExperienceItem);
+  }
+
         } else {
           alert("Failed to delete experience.");
         }
@@ -600,46 +648,112 @@ experienceList.addEventListener('click', (e) => {
 
 // OVERLAY 
 
-    const editBtn = document.querySelector('.edit-btn');
-    const overlay = document.getElementById('overlay');
-    const submitBtn = document.getElementById('submitAbout');
-    const closeBtn = document.getElementById('closeOverlay');
-    const aboutText = document.querySelector('.about-text');
-    const emptyMsg = document.querySelector('.empty-msg');
-    const aboutInput = document.getElementById('aboutInput');
+  
+const editBtn = document.querySelector('.edit-btn');
+const overlay = document.getElementById('overlay');
+const closeBtn = document.getElementById('closeOverlay');
+const aboutText = document.querySelector('.about-text');
+const emptyMsg = document.querySelector('.empty-msg');
+const aboutInput = document.getElementById('aboutInput');
+const aboutForm = document.getElementById('aboutForm');
 
-    editBtn.addEventListener('click', () => {
-        overlay.style.display = 'flex';
-        aboutInput.value = aboutText.textContent.trim();
+editBtn.addEventListener('click', () => {
+    overlay.style.display = 'flex';
+    aboutInput.value = aboutText?.textContent.trim() || "";
+});
+
+closeBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+});
+
+aboutForm.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent normal form submit
+
+    const formData = new FormData(aboutForm);
+
+    fetch('updateprofile.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(response => {
+    const inputText = aboutInput.value.trim();
+
+    // Update frontend without reload
+    if (inputText) {
+        if (aboutText) {
+            aboutText.textContent = inputText;
+        } else {
+            const newP = document.createElement("p");
+            newP.className = "about-text";
+            newP.textContent = inputText;
+            document.querySelector(".about-section").appendChild(newP);
+        }
+        if (emptyMsg) emptyMsg.style.display = 'none';
+    } else {
+        // If input is empty, remove aboutText if it exists
+        if (aboutText) aboutText.remove();
+        
+        // Show the empty message
+        if (emptyMsg) {
+            emptyMsg.style.display = 'block';
+        } else {
+            const newEmpty = document.createElement("p");
+            newEmpty.className = "empty-msg";
+            newEmpty.innerHTML = "<b>Looks like you haven't entered anything about yourself. Tap the Edit button to do so.</b>";
+            document.querySelector(".about-section").appendChild(newEmpty);
+        }
+    }
+
+    overlay.style.display = 'none';
+})
+    .catch(err => {
+        console.error('Failed to submit:', err);
     });
+});
 
-    submitBtn.addEventListener('click', () => {
-        const inputText = aboutInput.value.trim();
-        aboutText.textContent = inputText || "No about info provided.";
-        emptyMsg.style.display = inputText ? 'none' : 'block';
-        overlay.style.display = 'none';
-    });
-
-    closeBtn.addEventListener('click', () => {
-        overlay.style.display = 'none';
-    });
-
-
+   
+    //EVENT 
 document.getElementById("eventForm").addEventListener("submit", function (e) {
+  e.preventDefault(); // Stop form from submitting normally
+
+  const form = e.target;
   const imageInput = document.getElementById("eventImage");
   const descriptionInput = document.getElementById("eventDescription");
   const words = descriptionInput.value.trim().split(/\s+/).filter(Boolean);
 
+  // Validation
   if (!imageInput.value) {
     alert("Please upload an image.");
-    e.preventDefault();
     return;
   }
 
   if (words.length > 75) {
     alert("Description cannot exceed 75 words.");
-    e.preventDefault();
+    return;
   }
+
+  // Proceed with AJAX form submission
+  const formData = new FormData(form);
+formData.append("eventsubmit", "1"); 
+  fetch("add_event.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.text())
+    .then((result) => {
+      if (result.trim() === "success") {
+        form.reset();
+        document.getElementById("imagePreview").style.display = "none";
+        window.location.reload();
+      } else {
+        alert("Error: " + result);
+      }
+    })
+    .catch((err) => {
+      alert("An error occurred.");
+      console.error(err);
+    });
 });
 //word counter
 const desc = document.getElementById("eventDescription");
@@ -704,6 +818,7 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+
 
 
     </script>

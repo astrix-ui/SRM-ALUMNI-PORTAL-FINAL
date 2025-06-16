@@ -114,6 +114,15 @@ body {
 .register-btn:hover {
   background: radial-gradient(#4f93f3, #3880eb);
 }
+#msg-link{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+#dot-img{
+    margin-left: 5px;
+    width: 10px;
+}
 
 /* Hamburger menu */
 .hamburger {

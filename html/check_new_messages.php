@@ -4,7 +4,11 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-
+$email = $_SESSION['user'] ?? null;
+if (!$email) {
+    header("location:index.php");
+    exit;
+}
 include("dbconfig.php");
 
 

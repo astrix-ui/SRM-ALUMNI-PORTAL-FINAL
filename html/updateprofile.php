@@ -3,9 +3,9 @@
 session_start();
 include("dbconfig.php");
 
-$user_email= $_SESSION['user'];
 
 if(isset($_POST['edit_button'])){
+    $user_email= $_SESSION['user'];
 $name = $_POST['name'];
 $email = $_POST['email'];
 $city= $_POST['city'];
@@ -27,16 +27,29 @@ $_SESSION['user']=$email;
 header("location:profile.php");
 }; 
 
-if(isset($_POST['submitAbout'])){
-    $user_email= $_SESSION['user'];
- $about = mysqli_real_escape_string($conn, $_POST['about']);
-$updateprofile="UPDATE user SET about='$about' WHERE email='$user_email'";
-mysqli_query($conn,$updateprofile);
-header("location:profile.php");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user_email = $_SESSION['user'] ?? null;
+
+    if (!$user_email) {
+        echo "No session";
+        exit;
+    }
+
+    if (!isset($_POST['about'])) {
+        echo "No about data";
+        exit;
+    }
+    $user_email = $_SESSION['user'];
+    $about = mysqli_real_escape_string($conn, $_POST['about']);
+    $updateprofile = "UPDATE user SET about='$about' WHERE email='$user_email'";
+    mysqli_query($conn, $updateprofile);
+
+    echo "success";
+    die;
 };
 
 if(isset($_POST['change_pwd_button'])){
-  
+  $user_email= $_SESSION['user'];
  $oldpass=$_POST['current_password'];
  $newpass=$_POST['new_password'];
  $cpass=$_POST['confirm_password'];
@@ -55,7 +68,8 @@ if(password_verify($oldpass, $row['password'])){
              $hash = password_hash($newpass, PASSWORD_DEFAULT);
            $update_password="UPDATE user SET password='$hash' WHERE email='$user_email'";
            mysqli_query($conn,$update_password);
-           header("location:profile.php");
+           $_SESSION['success'] ="Passwords changed";
+           header("location:editprofile.php");
         }
         else{
              $_SESSION['fail'] ="Passwords dont match";
@@ -68,6 +82,5 @@ if(password_verify($oldpass, $row['password'])){
  
 }
 }
-
 
 ?>

@@ -2,41 +2,48 @@
 session_start();
 include("dbconfig.php");
 
+header('Content-Type: text/plain'); // Prevent HTML in response
+
 $email = $_SESSION['user'] ?? null;
 if (!$email) {
-    echo "User not logged in";
+    header("location:index.php");
     exit;
 }
 
-$sql = "SELECT * FROM user WHERE email='$email'";
+$sql = "SELECT * FROM user WHERE email='" . mysqli_real_escape_string($conn, $email) . "'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
+
+if (!$row) {
+    echo "Error: User not found";
+    exit;
+}
+
 $user_id = $row['user_id'];
 
+// Only handle POST with 'eventsubmit' set
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eventsubmit'])) {
     $eventtitle = mysqli_real_escape_string($conn, $_POST['eventTitle']);
     $eventdescription = mysqli_real_escape_string($conn, trim($_POST['eventDescription']));
-
-    // Character limit check for title
+    // Character limit check for titleMore actions
     if (strlen($eventtitle) > 50) {
         echo "<script>alert('Error: Title cannot exceed 50 characters.'); window.history.back();</script>";
         exit;
     }
-
     // Word limit check for description
-    $wordCount = str_word_count($eventdescription);
+    $wordCount = str_word_count(strip_tags($eventdescription));
     if ($wordCount > 75) {
-        echo "<script>alert('Error: Description exceeds 75 words.'); window.history.back();</script>";
+        echo "Error: Description exceeds 75 words.";
         exit;
     }
 
-    // Image required check
+    // Check for uploaded image
     if (!isset($_FILES['eventImage']) || $_FILES['eventImage']['error'] !== UPLOAD_ERR_OK) {
-        echo "<script>alert('Error: Image is required.'); window.history.back();</script>";
+        echo "Error: Image is required.";
         exit;
     }
 
-    // Read image as binary and escape it
+    // Read and escape image data
     $imageTmpPath = $_FILES['eventImage']['tmp_name'];
     $imageData = addslashes(file_get_contents($imageTmpPath));
 
@@ -45,10 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eventsubmit'])) {
                  VALUES ('$user_id', '$eventtitle', '$eventdescription', '$imageData')";
 
     if (mysqli_query($conn, $addevent)) {
-        header("Location: profile.php");
-        exit;
+        echo "success";
     } else {
         echo "Error: " . mysqli_error($conn);
     }
+} else {
+    // If it's not a proper POST, reject silently (no HTML)
+    echo "Invalid request.";
 }
 ?>

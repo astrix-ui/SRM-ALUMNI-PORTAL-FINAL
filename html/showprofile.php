@@ -159,29 +159,42 @@ include("nav.php");
                 <div class="location">
                   <img src="../assets/location.png" alt="">
                   <div class="location-details">
-                    <?php
-                       $location_parts = [];
-                       if (!empty($user_data['city'])){
-                       $location_parts[] = htmlspecialchars($user_data['city']);}
-                        if (!empty($user_data['country'])){
-                       $location_parts[] = htmlspecialchars($user_data['country']);}
-                        echo '<p><strong>'.  implode(', ', $location_parts).'</strong></p>';
-                      
-                        $address = $user_data['address'];        
-                        // split at the first comma
-                        $address_parts = explode(",", $address, 2);
-                                    
-                        // If there is no comma, manually break the string into two halves
-                        if (count($address_parts) < 2) {
-                            $half = ceil(strlen($address) / 2);
-                            $address_parts[0] = substr($address, 0, $half);
-                            $address_parts[1] = substr($address, $half);
-                        }
-                        
-                        
-                        echo $address_parts[0] . "<br>" . $address_parts[1];
+                          <?php
+                      $location_parts = [];
+
+if (!empty($user_data['city'])) {
+    $location_parts[] = htmlspecialchars($user_data['city']);
+}
+if (!empty($user_data['country'])) {
+    $location_parts[] = htmlspecialchars($user_data['country']);
+}
+
+$address = trim($user_data['address'] ?? '');
+
+if (empty($location_parts) && empty($address)) {
+    echo '<p style="padding-top:7px"><strong>No location added</strong></p>';
+} else {
+    
+    if (!empty($location_parts)) {
+         $style = empty($address) ? ' style="padding-top:7px"' : '';
+        echo '<p' . $style . '><strong>' . implode(', ', $location_parts) . '</strong></p>';
+    }
+
+    
+    if (!empty($address)) {
+        $address_parts = explode(",", $address, 2);
+
+        if (count($address_parts) < 2) {
+            $half = ceil(strlen($address) / 2);
+            $address_parts[0] = substr($address, 0, $half);
+            $address_parts[1] = substr($address, $half);
+        }
+
+        echo $address_parts[0] . "<br>" . $address_parts[1];
+    }
+}
+    
                         ?>
-                      
                         <!-- <p><strong>Paris, France</strong></p>
                         <p>H-123, Goldsworth Street, Rush Lane, North Paris, France.</p> -->
                     </div>
@@ -265,11 +278,11 @@ if (mysqli_num_rows($event_result) > 0) {
         $title = htmlspecialchars($event_data['title']);
         $description = htmlspecialchars($event_data['description']);
 
-        // Convert image BLOB to base64 string for inline display
+      
         if (!empty($event_data['image'])) {
             $base64Image = 'data:image/jpeg;base64,' . base64_encode($event_data['image']);
         } else {
-            $base64Image = '../assets/sample.png'; // fallback to sample image
+            $base64Image = '../assets/sample.png'; 
         }
 
         echo '

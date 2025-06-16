@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 
 $email = $_SESSION['user'] ?? null;
 if (!$email) {
-    echo "User not logged in";
+    header("location:index.php");
     exit;
 }
 
@@ -35,5 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         echo "Empty qualification";
     }
+}
+else{
+    header("location:profile.php");
 }
 ?>

@@ -870,8 +870,7 @@ button:hover {
 
 .card-content h3 {
     font-size: 2em;
-        overflow-wrap:break-word ;
-
+    overflow-wrap: break-word;
     margin-top: 20px;
     font-weight: bold;
     color: #02042B;
@@ -879,10 +878,9 @@ button:hover {
 
 .card-content p {
     font-size: 14px;
+    overflow-wrap: break-word;
     color: #2F3147;
     margin-top: 18px;
-        overflow-wrap:break-word ;
-
     padding-bottom: 40px;
 }
 

@@ -205,6 +205,7 @@ if (mysqli_num_rows($event_result) > 0) {
     }
     echo '</div>';
 } else {
+  echo '<div class="cards-container">';
     // echo '<p>No events available.</p>';
 }
 ?>
