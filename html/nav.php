@@ -34,7 +34,9 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
 
 
 <nav class="navbar">
-      <div class="logo">
+      <div class="logo" style="
+    margin-top: 5px;
+">
         <img src="../assets/srmlogo.png" alt="Logo" />
       </div>
      <ul class="nav-links">
