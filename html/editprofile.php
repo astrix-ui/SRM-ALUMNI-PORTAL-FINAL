@@ -41,6 +41,11 @@ if(!isset($_SESSION['user'])){
 
             unset($_SESSION['fail']);
            }
+           if(isset( $_SESSION['success'] )){
+            echo '<p style="color: green;">' . $_SESSION['success'] . '</p>';
+
+            unset($_SESSION['success']);
+           }
 
           ?>
       </div>
@@ -203,13 +208,17 @@ if(!isset($_SESSION['user'])){
             </div>
           </div>
           
-            <!-- ADDED </FORM> (CHANGED) -->
-        <button class="p-btn" name="edit_button">Save Changes</button></form> 
+             <!-- ADDED </FORM> (CHANGED) -->
+             <div class="btn-container">
 
+               <button class="p-btn" name="edit_button">Save Changes</button></form> 
+               <form><button class="p-btn">Delete Account</button> </form>
+              </div>
         <!-- (CHANGED) PASSWORD LOGIC copy paste the whole div, cuz some inline css changes are done -->
 <div class="card" id="change-password-card" style="display: none;">
   <form style="display: flex; flex-direction: column;" action="updateprofile.php" method="POST">
               <h3>Change your Password</h3>
+              
                <label for="current_password_input" class="form-label"
               >Enter your current password</label
             >
@@ -244,12 +253,12 @@ if(!isset($_SESSION['user'])){
               class="input-w-100"
               required
             />
-            <button class="p-btn" name="change_pwd_button" style="margin: auto; text-align: center;">Update Password</button>
-        </form>
+            <button class="p-btn" name="change_pwd_button" style="margin: auto; margin-top:20px; text-align: center;">Update Password</button>
+          </form>
       </div>
       <div class="btn-container">
         <button class="p-btn" onclick="toggleChangePasswordCard()">Change Password</button>
-      </form>
+      
 
       </div>
     </div>
@@ -265,27 +274,9 @@ if(!isset($_SESSION['user'])){
       // changed pwd logic
   function toggleChangePasswordCard() {
     const card = document.getElementById("change-password-card");
+      console.log("Button clicked"); // add this
     card.style.display = card.style.display === "none" ? "block" : "none";
   }
-
-  // navbar.js
-const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobile-menu");
-
-hamburger.addEventListener("click", (event) => {
-    const isMenuOpen = mobileMenu.style.right === "0px";
-    mobileMenu.style.right = isMenuOpen ? "-100%" : "0px";
-});
-
-// Close menu when clicking outside
-document.addEventListener("click", (event) => {
-    const isClickInsideMenu = mobileMenu.contains(event.target);
-    const isClickOnHamburger = hamburger.contains(event.target);
-
-    if (!isClickInsideMenu && !isClickOnHamburger) {
-        mobileMenu.style.right = "-100%";
-    }
-});
 
 
     </script>
