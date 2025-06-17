@@ -61,90 +61,18 @@ include("dbconfig.php");
             <!-- CARDS  -->
 
             <div class="fragmented-card">
-              <div class="fragmented-circle"></div>
-              <p>I find it difficult to keep track of things.</p>
+              <div class="fragmented-circle">
+                <img src="../assets/avatar.png" style="width:80px;">
+              </div>
+              <h3>Ayush Sharma</h3>
+              <div class="job-detail" style="display:flex;">
+
+                <p style="display:inline; margin-right:3px; font-weight:600;">CEO </p><span style="    font-size: 0.8em; font-weight:600;"> Google</span>
+              </div>
             </div>
 
-            <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-              <div class="fragmented-card">
-                <div class="fragmented-circle"></div>
-                <p>I find it difficult to keep track of things.</p>
-              </div>
-            </div>
+            
+             
         </div>
 
        </section>
