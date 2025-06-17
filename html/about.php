@@ -7,7 +7,7 @@ session_start();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us | SRM Alumni</title>
-    <link rel="stylesheet" href="../css/about3.css" />
+    <link rel="stylesheet" href="../css/about.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -143,7 +143,7 @@ Join us in building a vibrant ecosystem where SRMites support one another across
      include("footer.php");
      ?>
 
-    <script src="../js/searchPage.js"></script>
+   
     <script>
       const grid = document.getElementById("fragmentedGrid");
       let scrollInterval;

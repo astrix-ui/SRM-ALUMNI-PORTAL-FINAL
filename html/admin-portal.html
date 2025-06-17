@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRM Admin Portal</title>
+  <link rel="stylesheet" href="../css/admin-portal.css">
+</head>
+<body>
+  <h1 style="display: inline;">Admin Portal</h1>
+  <button id="logout-gtn" style="float: right;">Logout</button>
+
+  <!-- Alumni Details -->
+  <h2>Alumni Details</h2>
+  <!-- <button class="btn-add" onclick="toggleForm('alumniForm')">Add New</button> -->
+  <!-- <div class="add-form" id="alumniForm">
+    <button class="close-btn" onclick="toggleForm('alumniForm')">X</button>
+    <label for="alumniName">Name</label>
+    <input type="text" id="alumniName" />
+
+    <label for="alumniEmail">Email</label>
+    <input type="email" id="alumniEmail" />
+
+    <label for="alumniPassword">Password</label>
+    <input type="text" id="alumniPassword" />
+
+    <label for="alumniBatch">Batch</label>
+    <input type="text" id="alumniBatch" />
+
+    <label for="alumniBranch">Branch</label>
+    <input type="text" id="alumniBranch" />
+
+    <label for="alumniSpec">Specialization</label>
+    <input type="text" id="alumniSpec" />
+
+    <label for="alumniAddress">Permanent Address</label>
+    <input type="text" id="alumniAddress" />
+
+    <label for="alumniCompany">Current Company</label>
+    <input type="text" id="alumniCompany" />
+
+    <label for="alumniDesignation">Designation</label>
+    <input type="text" id="alumniDesignation" />
+
+    <label for="alumniOccupation">Occupation</label>
+    <input type="text" id="alumniOccupation" />
+
+    <label>Spouse Title</label>
+    <div class="radio-group">
+      <label><input type="radio" name="spouseTitle" value="Mr." style="transform: scale(1.2); width: calc(100%);"> Mr.</label>
+      <label><input type="radio" name="spouseTitle" value="Mrs."> Mrs.</label>
+    </div>
+
+    <label for="alumniSpouseName">Spouse Name</label>
+    <input type="text" id="alumniSpouseName" />
+
+    <label for="alumniSpouseBD">Spouse Birthday</label>
+    <input type="date" id="alumniSpouseBD" />
+
+    <label for="alumniAnniversary">Anniversary</label>
+    <input type="date" id="alumniAnniversary" />
+
+    <label for="alumniStudent">Are they a Student?</label>
+    <select id="alumniStudent">
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+
+    <button onclick="addAlumni()">Submit</button>
+  </div> -->
+
+  <table id="alumniTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Batch</th>
+        <th>Branch</th>
+        <th>Specialization</th>
+        <th>Permanent Address</th>
+        <th>Current Company</th>
+        <th>Designation</th>
+        <th>Occupation</th>
+        <th>Spouse Title</th>
+        <th>Spouse Name</th>
+        <th>Spouse Birthday</th>
+        <th>Anniversary</th>
+        <th>Student</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Event Details -->
+  <h2>Event Details</h2>
+  <!-- <button class="btn-add" onclick="toggleForm('eventForm')">Add New Event</button> -->
+  <!-- <div class="add-form" id="eventForm">
+    <button class="close-btn" onclick="toggleForm('eventForm')">X</button>
+    <label for="eventName">Event Name</label>
+    <input type="text" id="eventName" />
+
+    <label for="eventDesc">Description</label>
+    <input type="text" id="eventDesc" />
+
+    <label for="eventImg">Image URL</label>
+    <input type="text" id="eventImg" />
+
+    <label for="eventAuthor">Author Name</label>
+    <input type="text" id="eventAuthor" />
+
+    <label for="eventUpload">Upload Poster</label>
+    <input type="file" id="eventUpload" accept="image/*" />
+
+    <button onclick="addEvent()">Submit Event</button>
+  </div> -->
+
+  <table id="eventTable">
+    <thead>
+      <tr>
+        <th>Event Name</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Author</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+ <!-- Alumni Photos -->
+  <h2>Alumni Photos</h2>
+  <button class="btn-add" onclick="toggleForm('photoForm')">Add New Photo</button>
+  <div class="add-form" id="photoForm">
+    <button class="close-btn" onclick="toggleForm('photoForm')">X</button>
+    <label for="photoUpload">Upload Photo</label>
+    <input type="file" id="photoUpload" accept="image/*" />
+
+    <label for="photoName">Name</label>
+    <input type="text" id="photoName" />
+
+    <label for="photoDesignation">Designation</label>
+    <input type="text" id="photoDesignation" />
+
+    <label for="photoOccupation">Occupation</label>
+    <input type="text" id="photoOccupation" />
+
+    <label for="photoBatch">Batch</label>
+    <input type="text" id="photoBatch" />
+
+    <label for="photoCompany">Company</label>
+    <input type="text" id="photoCompany" />
+
+    <button onclick="submitPhoto()" id="submitPhotoBtn">Submit Photo</button>
+  </div>
+
+  <table id="photoTable">
+    <thead>
+      <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Occupation</th>
+        <th>Batch</th>
+        <th>Company</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    let currentPhotoRow = null;
+
+    function toggleForm(id) {
+      const form = document.getElementById(id);
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function submitPhoto() {
+      const name = document.getElementById("photoName").value;
+      const designation = document.getElementById("photoDesignation").value;
+      const occupation = document.getElementById("photoOccupation").value;
+      const batch = document.getElementById("photoBatch").value;
+      const company = document.getElementById("photoCompany").value;
+
+      const uploadInput = document.getElementById("photoUpload");
+      const file = uploadInput.files[0];
+
+      if (currentPhotoRow) {
+        // Editing existing row
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          currentPhotoRow.innerHTML = `
+            <td><img src="${e.target.result}" alt="Alumni Photo" width="50"></td>
+            <td>${name}</td>
+            <td>${designation}</td>
+            <td>${occupation}</td>
+            <td>${batch}</td>
+            <td>${company}</td>
+            <td>
+              <button onclick="editPhoto(this)">Edit</button>
+              <button onclick="deletePhoto(this)">Delete</button>
+            </td>`;
+          toggleForm('photoForm');
+          resetPhotoForm();
+        };
+        if (file) reader.readAsDataURL(file);
+        else {
+          const imgSrc = currentPhotoRow.querySelector('img').src;
+          currentPhotoRow.innerHTML = `
+            <td><img src="${imgSrc}" alt="Alumni Photo" width="50"></td>
+            <td>${name}</td>
+            <td>${designation}</td>
+            <td>${occupation}</td>
+            <td>${batch}</td>
+            <td>${company}</td>
+            <td>
+              <button onclick="editPhoto(this)">Edit</button>
+              <button onclick="deletePhoto(this)">Delete</button>
+            </td>`;
+          toggleForm('photoForm');
+          resetPhotoForm();
+        }
+      } else {
+        // New entry
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const table = document.getElementById("photoTable").querySelector("tbody");
+          const row = table.insertRow();
+          row.innerHTML = `
+            <td><img src="${e.target.result}" alt="Alumni Photo" width="50"></td>
+            <td>${name}</td>
+            <td>${designation}</td>
+            <td>${occupation}</td>
+            <td>${batch}</td>
+            <td>${company}</td>
+            <td>
+              <button onclick="editPhoto(this)">Edit</button>
+              <button onclick="deletePhoto(this)">Delete</button>
+            </td>`;
+        };
+        if (file) reader.readAsDataURL(file);
+        toggleForm('photoForm');
+        resetPhotoForm();
+      }
+    }
+
+    function editPhoto(btn) {
+      const row = btn.closest("tr");
+      const cells = row.querySelectorAll("td");
+
+      document.getElementById("photoName").value = cells[1].innerText;
+      document.getElementById("photoDesignation").value = cells[2].innerText;
+      document.getElementById("photoOccupation").value = cells[3].innerText;
+      document.getElementById("photoBatch").value = cells[4].innerText;
+      document.getElementById("photoCompany").value = cells[5].innerText;
+
+      currentPhotoRow = row;
+      toggleForm('photoForm');
+    }
+
+    function deletePhoto(btn) {
+      const row = btn.closest("tr");
+      row.remove();
+    }
+
+    function resetPhotoForm() {
+      currentPhotoRow = null;
+      document.getElementById("photoForm").reset();
+      document.getElementById("photoUpload").value = null;
+    }
+  </script>
+</body>
+</html>

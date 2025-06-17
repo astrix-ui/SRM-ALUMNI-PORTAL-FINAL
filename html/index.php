@@ -8,7 +8,7 @@ include("dbconfig.php");
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | SRM Alumni</title>
-    <link rel="stylesheet" href="../css/index5.css" />
+    <link rel="stylesheet" href="../css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -173,7 +173,7 @@ include("dbconfig.php");
       <!-- EVENTS SECTION   -->
 
     <section class="events-section">
-      <H1>Discover Events</H1>
+      <H1 style="margin-bottom:20px;">Discover Events</H1>
         
              <?php
 
@@ -198,6 +198,14 @@ if (mysqli_num_rows($event_result) > 0) {
         <div class="card">
             <img src="' . $base64Image . '" alt="' . $title . '">
             <div class="card-content">
+                <button style="
+                background: transparent; cursor:pointer;
+            "><span style="
+                margin-top: 12px;
+                font-size: 0.8rem;
+                color: #555;
+                font-style: italic;
+            " class="author">~ Author</span></button>
                 <h3>' . $title . '</h3>
                 <p>' . $description . '</p>
             </div>
@@ -224,7 +232,7 @@ if (mysqli_num_rows($event_result) > 0) {
       include("footer.php");
      ?>
 
-    <script src="../js/searchPage.js"></script>
+    
     <script>
       const grid = document.getElementById("fragmentedGrid");
       let scrollInterval;

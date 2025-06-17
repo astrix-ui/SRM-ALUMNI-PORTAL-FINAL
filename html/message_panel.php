@@ -49,13 +49,13 @@ $trimmedMessage = substr($lastMessage['message'], 0, 20);
   // Check if there's a last message and the user who received it
   if ($lastMessage['seen'] == 0 && $lastMessage['receiver_id'] == $current_user_id) {
     // Display unread message with a dot
-    echo '<form action="chat.php?user=' . urlencode($user_name) . '" method="POST" style="all: unset;">
+    echo '<form action="message_page.php?user=' . urlencode($user_name) . '" method="POST" style="all: unset;">
         <input type="hidden" name="receiver_user_id" value="' . $receiver_id . '">
         <input type="hidden" name="receiver_user_name" value="' . htmlspecialchars($user_name) . '">
         <input type="hidden" name="loggedin_user_id" value="' . $current_user_id . '">
         <input type="hidden" name="message_id" value="' . $lastMessage['message_id'] . '">
         <button type="submit" style="all: unset; display: block; width: 100%; text-align: left; cursor: pointer;">
-          <div class="user-container" ><img src="/alumni/assets/dot.png" alt="">
+          <div class="user-container" ><img src="../assets/dot.png" alt="">
             <h4 class="user-id">' . htmlspecialchars($user_name) . '</h4>
             <p>' . $trimmedMessage . (strlen($lastMessage['message']) > 20 ? "..." : "") . '</p>
           </div>
@@ -63,7 +63,7 @@ $trimmedMessage = substr($lastMessage['message'], 0, 20);
       </form>';
 } else {
     // Display regular message
-    echo '<form action="chat.php?user=' . urlencode($user_name) . '" method="POST" style="all: unset;">
+    echo '<form action="message_page.php?user=' . urlencode($user_name) . '" method="POST" style="all: unset;">
         <input type="hidden" name="receiver_user_id" value="' . $receiver_id . '">
         <input type="hidden" name="receiver_user_name" value="' . htmlspecialchars($user_name) . '">
         <input type="hidden" name="loggedin_user_id" value="' . $current_user_id . '">

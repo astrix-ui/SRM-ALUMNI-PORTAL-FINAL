@@ -8,7 +8,7 @@ include("dbconfig.php");
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Events | SRM Alumni</title>
-    <link rel="stylesheet" href="../css/eventspage2.css" />
+    <link rel="stylesheet" href="../css/eventspage.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -64,6 +64,14 @@ if (mysqli_num_rows($event_result) > 0) {
         <div class="card">
             <img src="' . $base64Image . '" alt="' . $title . '">
             <div class="card-content">
+            <button style="
+                background: transparent; cursor:pointer;
+            "><span style="
+                margin-top: 12px;
+                font-size: 0.8rem;
+                color: #555;
+                font-style: italic;
+            " class="author">~ Author</span></button>
                 <h3>' . $title . '</h3>
                 <p>' . $description . '</p>
             </div>

@@ -12,7 +12,7 @@ if(!isset($_SESSION['user'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumni Profile | SRM</title>
-    <link rel="stylesheet" href="../css/profile7.css">
+    <link rel="stylesheet" href="../css/profile.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -58,12 +58,14 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
         <li><a href="about.php">About Us</a></li>
         <li><a href="searchpage.php">Directory</a></li>
         <li><a href="eventpage.php">Events</a></li>
-         <li id="msg-link">
-  <a href="chat.php">
-    <img src="/alumni/assets/dot.png" id="dot-img" style="display: none;">
-    Interact
-  </a>
-</li>
+          <?php
+        if(isset($_SESSION['user'])){
+       echo'<li id="msg-link">
+       <a href="message_page.php">
+       <img src="../assets/dot.png" id="dot-img" style="display: none;">
+       Interact
+      </a>
+      </li>';}?>
         <li><a href="profile.php">Profile</a></li>
       </ul>
       <div class="nav-btn-container" style="display: flex; gap: 8px;">
@@ -99,11 +101,14 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
         <li><a href="about.php">About Us</a></li>
         <li><a href="searchpage.php">Directory</a></li>
         <li><a href="eventpage.php">Events</a></li>
-            <li id="msg-link">
-  <a href="chat.php">
-    Interact
-    <img src="/alumni/assets/dot.png" id="dot-img" style="display: none;">
-  </a>
+              <?php
+        if(isset($_SESSION['user'])){
+       echo'<li id="msg-link">
+       <a href="message_page.php">
+       Interact
+       <img src="../assets/dot.png" id="dot-img" style="display: none;">
+      </a>
+      </li>';}?>
         <li><a href="profile.php">Profile</a></li>
       </ul>
       <div class="btn-container-mobile">
@@ -392,9 +397,12 @@ if (mysqli_num_rows($event_result) > 0) {
         </div>';
     }
     echo '</div>';
-} else {
-    echo '<p>No events available.</p>';
 }
+  else {
+  echo '<p id="no-events-msg">No events available.</p>';
+}
+
+
 ?>
 
     
@@ -714,12 +722,14 @@ aboutForm.addEventListener('submit', function (e) {
 
    
     //EVENT 
+
 document.getElementById("eventForm").addEventListener("submit", function (e) {
-  e.preventDefault(); // Stop form from submitting normally
+  e.preventDefault(); // Stop default form submission
 
   const form = e.target;
   const imageInput = document.getElementById("eventImage");
   const descriptionInput = document.getElementById("eventDescription");
+  const titleInput = document.getElementById("eventTitle");
   const words = descriptionInput.value.trim().split(/\s+/).filter(Boolean);
 
   // Validation
@@ -733,29 +743,78 @@ document.getElementById("eventForm").addEventListener("submit", function (e) {
     return;
   }
 
-  // Proceed with AJAX form submission
   const formData = new FormData(form);
-formData.append("eventsubmit", "1"); 
+  formData.append("eventsubmit", "1");
+
   fetch("add_event.php", {
     method: "POST",
     body: formData,
   })
     .then((res) => res.text())
     .then((result) => {
-      if (result.trim() === "success") {
-        form.reset();
-        document.getElementById("imagePreview").style.display = "none";
-        window.location.reload();
-      } else {
-        alert("Error: " + result);
-      }
-    })
-    .catch((err) => {
+  if (result.trim().startsWith("success")) {
+    // Parse event ID from response
+    const parts = result.trim().split("|");
+    const eventId = parts[1] ?? "temp";
+
+    // Store values before reset
+    const title = titleInput.value;
+    const description = descriptionInput.value;
+
+    // FileReader must run before form reset
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imageSrc = e.target.result;
+
+      // Create new card
+      const newCard = document.createElement("div");
+      newCard.className = "card";
+      newCard.setAttribute("data-id", eventId);
+      newCard.innerHTML = `
+        <img src="${imageSrc}" alt="${title}">
+        <div class="card-content">
+          <h3>${title}</h3>
+          <p>${description}</p>
+        </div>
+        <button type="submit" class="remove-btn-events">-</button>
+      `;
+
+      // Prepend new card
+      // Remove 'No events' message if present
+const noEventsText = document.getElementById("no-events-msg");
+if (noEventsText) noEventsText.remove();
+
+// Find or create the cards container
+let cardsContainer = document.querySelector(".cards-container");
+
+if (!cardsContainer) {
+  cardsContainer = document.createElement("div");
+  cardsContainer.className = "cards-container";
+  // Append it inside the events-wrapper section
+  document.querySelector(".events-wrapper").appendChild(cardsContainer);
+}
+
+// Add the new card
+cardsContainer.prepend(newCard);
+
+      // Now reset form and hide it
+      form.reset();
+      document.getElementById("imagePreview").style.display = "none";
+      document.getElementById("eventFormContainer").style.display = "none";
+    };
+
+    // Trigger image load
+    reader.readAsDataURL(imageInput.files[0]);
+  } else {
+    alert("Error: " + result);
+  }
+})    .catch((err) => {
       alert("An error occurred.");
       console.error(err);
     });
 });
-//word counter
+
+// Word counter
 const desc = document.getElementById("eventDescription");
 const wordCountHelper = document.getElementById("wordCount");
 
@@ -764,7 +823,6 @@ desc.addEventListener("input", () => {
   wordCountHelper.textContent = `${words.length}/75 words`;
   wordCountHelper.style.color = words.length > 75 ? "red" : "black";
 });
-
 
 // Image preview
 document.getElementById("eventImage").addEventListener("change", function () {
@@ -783,12 +841,17 @@ document.getElementById("eventImage").addEventListener("change", function () {
     preview.style.display = "none";
   }
 });
- 
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('remove-btn-events')) {
-    const button = e.target;
-    const card = button.closest('.card'); // This is your wrapper div
-    const eventId = card.getAttribute('data-id'); // Make sure .card has this
+
+// Cancel button hides form
+document.getElementById("cancelFormBtn").addEventListener("click", () => {
+  document.getElementById("eventFormContainer").style.display = "none";
+});
+
+// Remove event dynamically
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove-btn-events")) {
+    const card = e.target.closest(".card");
+    const eventId = card.getAttribute("data-id");
 
     if (!eventId) {
       alert("Missing event ID.");
@@ -796,31 +859,29 @@ document.addEventListener('click', (e) => {
     }
 
     if (confirm("Are you sure you want to delete this event?")) {
-      fetch('delete_event.php', {
-        method: 'POST',
+      fetch("delete_event.php", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: 'id=' + encodeURIComponent(eventId)
+        body: "id=" + encodeURIComponent(eventId),
       })
-      .then(response => response.text())
-      .then(result => {
-        if (result === 'success') {
-          card.remove();
-        } else {
-          alert("Failed to delete event.");
-        }
-      })
-      .catch(err => {
-        console.error("Fetch error:", err);
-        alert("An error occurred while deleting.");
-      });
+        .then((res) => res.text())
+        .then((result) => {
+          if (result.trim() === "success") {
+            card.remove();
+          } else {
+            alert("Failed to delete event.");
+          }
+        })
+        .catch((err) => {
+          console.error("Fetch error:", err);
+          alert("An error occurred while deleting.");
+        });
     }
   }
 });
+</script>
 
-
-
-    </script>
 </body>
 </html>

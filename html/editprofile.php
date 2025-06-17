@@ -12,7 +12,7 @@ if(!isset($_SESSION['user'])){
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Profile | SRM Alumni</title>
-    <link rel="stylesheet" href="../css/editprofile3.css" />
+    <link rel="stylesheet" href="../css/editprofile.css" />
     <!-- FONTS  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -208,12 +208,12 @@ if(!isset($_SESSION['user'])){
             </div>
           </div>
           
-             <!-- ADDED </FORM> (CHANGED) -->
-             <div class="btn-container">
+            <!-- ADDED </FORM> (CHANGED) -->
+        <button class="p-btn" name="edit_button">Save Changes</button></form> 
+        <form action="delete_user.php" method="POST">
+          <input type="hidden" name="user_id" value="<?php echo $user_data['user_id'] ?>" >
+          <button class="p-btn" name="delete_btn" >Delete Account</button> </form>
 
-               <button class="p-btn" name="edit_button">Save Changes</button></form> 
-               <form><button class="p-btn">Delete Account</button> </form>
-              </div>
         <!-- (CHANGED) PASSWORD LOGIC copy paste the whole div, cuz some inline css changes are done -->
 <div class="card" id="change-password-card" style="display: none;">
   <form style="display: flex; flex-direction: column;" action="updateprofile.php" method="POST">

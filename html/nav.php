@@ -23,7 +23,7 @@
 checkNewMessages();
 
 // Call checkNewMessages every 5 seconds using setInterval
-setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseconds)
+setInterval(checkNewMessages, 3000); // Adjust the interval as needed (milliseconds)
 
 });
 
@@ -33,8 +33,8 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
 </script>
 
 
-<nav class="navbar">
-      <div class="logo" style="margin-top:5px;">
+<nav class="navbar"  style="margin-top:5px;">
+      <div class="logo">
         <img src="../assets/srmlogo.png" alt="Logo" />
       </div>
      <ul class="nav-links">
@@ -42,12 +42,14 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
         <li><a href="about.php">About Us</a></li>
         <li><a href="searchpage.php">Directory</a></li>
         <li><a href="eventpage.php">Events</a></li>
-       <li id="msg-link">
-  <a href="chat.php">
-    <img src="/alumni/assets/dot.png" id="dot-img" style="display: none;">
-    Interact
-  </a>
-</li>
+        <?php
+        if(isset($_SESSION['user'])){
+       echo'<li id="msg-link">
+       <a href="message_page.php">
+      <img src="../assets/dot.png" id="dot-img" style="display: none;">
+      Interact
+      </a>
+      </li>';}?>
         <li><a href="profile.php">Profile</a></li>
       </ul>
       <div class="register-btn">
@@ -78,11 +80,14 @@ setInterval(checkNewMessages, 1000); // Adjust the interval as needed (milliseco
         <li><a href="about.php">About Us</a></li>
         <li><a href="searchpage.php">Directory</a></li>
         <li><a href="eventpage.php">Events</a></li>
-            <li id="msg-link">
-  <a href="chat.php">
-    Interact
-    <img src="/alumni/assets/dot.png" id="dot-img" style="display: none;">
-  </a>
+           <?php
+        if(isset($_SESSION['user'])){
+       echo'<li id="msg-link">
+       <a href="message_page.php">
+       Interact
+       <img src="../assets/dot.png" id="dot-img" style="display: none;">
+      </a>
+      </li>';}?>
         <li><a href="profile.php">Profile</a></li>
       </ul>
       <div class="mobile-register-btn">

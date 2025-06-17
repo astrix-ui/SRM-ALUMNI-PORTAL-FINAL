@@ -208,7 +208,7 @@ body {
     /* background-color: #266CCB; */
     padding: 80px 20px;
     padding-top: 160px;
-    padding-bottom: 100px;
+    padding-bottom: 50px;
     border-radius: 40px;
     margin: 0px auto;
     margin-top: -120px;
@@ -582,7 +582,7 @@ body {
 }
 
 .grid-container {
-    width: 80%;
+    width: 95%;
     margin: auto;
 }
 

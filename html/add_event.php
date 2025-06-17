@@ -52,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eventsubmit'])) {
                  VALUES ('$user_id', '$eventtitle', '$eventdescription', '$imageData')";
 
     if (mysqli_query($conn, $addevent)) {
-        echo "success";
+          $event_id = mysqli_insert_id($conn);
+    echo "success|$event_id";
     } else {
         echo "Error: " . mysqli_error($conn);
     }

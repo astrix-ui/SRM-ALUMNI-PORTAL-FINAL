@@ -19,7 +19,7 @@ if (isset($_POST['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumni Profile | SRM</title>
-    <link rel="stylesheet" href="../css/showprofile2.css">
+    <link rel="stylesheet" href="../css/showprofile.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -89,7 +89,7 @@ include("nav.php");
                 <button class="follow-btn"name="unfollow" type="submit">FOLLOWING</button>
                 </form>';
 
-                  echo'<form action="chat.php?user='.$user_data['name'].'" method="POST">
+                  echo'<form action="message_page.php?user='.$user_data['name'].'" method="POST">
                 <input type="hidden" name="receiver_user_id" value="'. $user_id.'">
                 <input type="hidden" name="loggedin_user_id" value="'. $loggedin_user_id.'">
                 <input type="hidden" name="receiver_user_name" value="'. $user_data['name'].'">
@@ -114,7 +114,7 @@ include("nav.php");
                 // echo '<a href="messages.php?otherperson='.$otheruser.'"><button class="login-btn more-btn">Message</button></a>';
                
                 
-                // echo'<form action="chat.php?user='.$user_data['name'].'" method="POST">
+                // echo'<form action="message_page.php?user='.$user_data['name'].'" method="POST">
                 // <input type="hidden" name="receiver_user_id" value="'. $user_id.'">
                 // <input type="hidden" name="loggedin_user_id" value="'. $loggedin_user_id.'">
                 // <input type="hidden" name="receiver_user_name" value="'. $user_data['name'].'">

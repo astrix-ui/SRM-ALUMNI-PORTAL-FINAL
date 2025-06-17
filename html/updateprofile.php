@@ -5,7 +5,7 @@ include("dbconfig.php");
 
 
 if(isset($_POST['edit_button'])){
-    $user_email= $_SESSION['user'];
+$user_email= $_SESSION['user'];
 $name = $_POST['name'];
 $email = $_POST['email'];
 $city= $_POST['city'];

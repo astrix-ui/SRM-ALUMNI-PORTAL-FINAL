@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Search Users | SRM Alumni</title>
-  <link rel="stylesheet" href="../css/searchPage2.css" />
+  <link rel="stylesheet" href="../css/searchPage.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
@@ -95,6 +95,13 @@ function searchUsername(page = 1) {
   const degree = document.getElementById('filter-degree').value;
   const location = document.getElementById('filter-location').value;
   const occupation = document.getElementById('filter-occupation').value;
+
+  // ✅ Prevent empty search from triggering backend
+  if (!query && !batch && !degree && !location && !occupation) {
+    document.querySelector('.profile-container').innerHTML = "";
+    document.querySelector(".pagination").style.display = "none";
+    return;
+  }
 
   const params = new URLSearchParams({
     query, batch, degree, location, occupation, page
