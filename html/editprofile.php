@@ -59,6 +59,26 @@ if(!isset($_SESSION['user'])){
     <!-- Overlapping Cards Section -->
     <section class="info-section">
       <div class="info-container">
+<<<<<<< HEAD
+=======
+
+           <!-- PROFILE PIC  -->
+          <div class="profile-pic-upload">
+      <label class="profile-pic-label">Profile Picture</label>
+
+      <div class="profile-pic-preview-container">
+        <img id="preview-image" src="../images/default-avatar.png" alt="Profile Picture Preview" />
+      </div>
+
+      <!-- Hidden file input -->
+      <input type="file" id="profile_picture" name="profile_picture" accept="image/*" hidden />
+
+      <!-- Styled upload button -->
+      <button type="button" class="upload-btn p-btn" onclick="document.getElementById('profile_picture').click()">Upload Photo</button>
+    </div>
+
+
+>>>>>>> 862ec94 (Initial commit)
         <!-- CARD  -->
         <div class="card">
           <h2>Basics</h2>
@@ -69,6 +89,7 @@ if(!isset($_SESSION['user'])){
               
             </div>
 
+<<<<<<< HEAD
             <div class="city-input-container">
               <label for="City" class="form-label">City/Country</label>
               <input type="text" name="city" placeholder="Enter your City" value="<?php echo $user_data['city']?>"/>
@@ -81,6 +102,9 @@ if(!isset($_SESSION['user'])){
             </div>
 
             <label for="email_input" class="form-label">Email Adress</label>
+=======
+            <label for="email_input" class="form-label">Personal Email Adress</label>
+>>>>>>> 862ec94 (Initial commit)
             <input
               type="text"
               id="email_input"
@@ -91,6 +115,32 @@ if(!isset($_SESSION['user'])){
               required
             />
 
+<<<<<<< HEAD
+=======
+            <div class="address-input-container">
+              <label for="Address" class="form-label">Permanent Address</label>
+              <input type="text" name="address" placeholder="Enter your Permanent Address" value="<?php echo $user_data['address']?>" />
+            </div>
+
+            
+            <div class="spouse-details-container">
+              <label class="form-label">Spouse Title</label>
+              <div class="spouse-title-radio">
+              <label><input type="radio" name="spouse_title" value="Mr." required> Mr.</label>
+              <label><input type="radio" name="spouse_title" value="Mrs."> Mrs.</label>
+            </div>
+
+                    <label for="Address" class="form-label">Spouse Details</label>
+                        <input type="text" name="address" placeholder="Enter your Spouse's Name"  />
+
+            <label for="spouse_birthday" class="form-label">Spouse Birthday</label>
+            <input type="date" name="spouse_birthday" id="spouse_birthday" class="input-w-100" />
+          </div>
+
+
+            
+
+>>>>>>> 862ec94 (Initial commit)
             <!-- <label for="password_input" class="form-label"
               >Enter your password</label
             >
@@ -130,6 +180,15 @@ if(!isset($_SESSION['user'])){
               class="input-w-100"
             />
 
+<<<<<<< HEAD
+=======
+            <div class="city-input-container">
+              <label for="City" class="form-label">City/Country</label>
+              <input type="text" name="city" placeholder="Enter your City" value="<?php echo $user_data['city']?>"/>
+              <input type="text" name="country" placeholder="Enter your Country" value="<?php echo $user_data['country']?>" />
+            </div>
+
+>>>>>>> 862ec94 (Initial commit)
             <label for="designation_input" class="form-label"
               >Designation</label
             >
@@ -157,12 +216,20 @@ if(!isset($_SESSION['user'])){
         <div class="card">
           <h2>Academic Information</h2>
          
+<<<<<<< HEAD
             <label for="batch_input" class="form-label">Batch</label>
+=======
+            <label for="batch_input" class="form-label">Passout Batch Year</label>
+>>>>>>> 862ec94 (Initial commit)
             <input
               type="text"
               name="batch"
               id="batch_input"
+<<<<<<< HEAD
               placeholder="Enter Batch Details"
+=======
+              placeholder="Enter Batch Details (example: 2027)"
+>>>>>>> 862ec94 (Initial commit)
               value="<?php echo $user_data['batch']?>"
               class="input-w-100"
               required
@@ -210,9 +277,15 @@ if(!isset($_SESSION['user'])){
           
             <!-- ADDED </FORM> (CHANGED) -->
         <button class="p-btn" name="edit_button">Save Changes</button></form> 
+<<<<<<< HEAD
         <form action="delete_user.php" method="POST">
           <input type="hidden" name="user_id" value="<?php echo $user_data['user_id'] ?>" >
           <button class="p-btn" name="delete_btn" >Delete Account</button> </form>
+=======
+        <!-- <form action="delete_user.php" method="POST">
+          <input type="hidden" name="user_id" value="<?php echo $user_data['user_id'] ?>" >
+          <button class="p-btn" name="delete_btn" >Delete Account</button> </form> -->
+>>>>>>> 862ec94 (Initial commit)
 
         <!-- (CHANGED) PASSWORD LOGIC copy paste the whole div, cuz some inline css changes are done -->
 <div class="card" id="change-password-card" style="display: none;">

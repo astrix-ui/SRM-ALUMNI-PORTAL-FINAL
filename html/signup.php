@@ -141,12 +141,20 @@ include("nav.php");
 
         <div class="card">
           <h2>Academic Information</h2>
+<<<<<<< HEAD
           <label for="batch_input" class="form-label">Batch</label>
+=======
+          <label for="batch_input" class="form-label">Passout Batch Year</label>
+>>>>>>> 862ec94 (Initial commit)
           <input
           type="text"
           name="Batch"
           id="batch_input"
+<<<<<<< HEAD
           placeholder="Enter Batch Year"
+=======
+          placeholder="Enter Batch Details (example: 2027)"
+>>>>>>> 862ec94 (Initial commit)
           class="input-w-100"
           required
           />
