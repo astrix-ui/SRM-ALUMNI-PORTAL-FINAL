@@ -216,20 +216,17 @@ if(!isset($_SESSION['user'])){
         <div class="card">
           <h2>Academic Information</h2>
          
-<<<<<<< HEAD
-            <label for="batch_input" class="form-label">Batch</label>
-=======
+
+
             <label for="batch_input" class="form-label">Passout Batch Year</label>
->>>>>>> 862ec94 (Initial commit)
+
             <input
               type="text"
               name="batch"
               id="batch_input"
-<<<<<<< HEAD
-              placeholder="Enter Batch Details"
-=======
+
               placeholder="Enter Batch Details (example: 2027)"
->>>>>>> 862ec94 (Initial commit)
+
               value="<?php echo $user_data['batch']?>"
               class="input-w-100"
               required

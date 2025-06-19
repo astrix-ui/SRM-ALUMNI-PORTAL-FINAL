@@ -114,7 +114,7 @@ body {
 .register-btn:hover {
   background: radial-gradient(#4f93f3, #3880eb);
 }
-<<<<<<< HEAD
+
 #msg-link{
     display: flex;
     align-items: center;
@@ -123,18 +123,14 @@ body {
 #dot-img{
     margin-left: 5px;
     width: 10px;
-=======
 
-#msg-link {
-  display: flex;
-  align-items: center;
-  /* justify-content: center; */
+
 }
 
 #dot-img {
   margin-left: 5px;
   width: 10px;
->>>>>>> 862ec94 (Initial commit)
+
 }
 
 /* Hamburger menu */
@@ -314,11 +310,7 @@ select {
 
 .name-input-container input {
   width: 100%
-<<<<<<< HEAD
-  /* margin: 10px 10px; */
-=======
-    /* margin: 10px 10px; */
->>>>>>> 862ec94 (Initial commit)
+
 }
 
 .input-w-100 {
@@ -388,14 +380,14 @@ select {
     flex-direction: column;
     align-items: center;
   }
-<<<<<<< HEAD
+
   /* CHANGED  */
  .btn-container{
 flex-direction: column;
 
 
   }
-=======
+
 
   /* CHANGED  */
   .btn-container {
@@ -404,7 +396,7 @@ flex-direction: column;
 
   }
 
->>>>>>> 862ec94 (Initial commit)
+
   .card {
     width: 90%;
   }
@@ -531,10 +523,10 @@ flex-direction: column;
   .links h3 {
     font-size: 1.7em;
   }
-<<<<<<< HEAD
+
 }
-=======
-}
+
+
 
 /* EDIT PROFILE */
 .profile-pic-upload {
@@ -579,4 +571,4 @@ flex-direction: column;
 .upload-btn:hover {
   background-color: #1b54a3;
 }
->>>>>>> 862ec94 (Initial commit)
+
