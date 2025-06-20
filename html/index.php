@@ -62,7 +62,7 @@ include("dbconfig.php");
 
             <div class="fragmented-card">
               <div class="fragmented-circle">
-                <img src="../assets/avatar.png" style="width:80px;">
+                <img src="../assets/avatar.png" style="width:80px; border-radius:50px;">
               </div>
               <h3>Ayush Sharma</h3>
               <div class="job-detail" style="display:flex;">
